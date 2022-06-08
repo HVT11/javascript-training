@@ -94,8 +94,6 @@ arrayTest.unshift(10) //add element at the beginning
 arrayTest.pop() //remove an item from the end
 arrayTest.shift() //remove an item from the beginning
 
-console.log(arrayTest)
-
 const arrayTest1 = [1, 2]
 const arrayTest2 = [3, 4]
 const result1 = arrayTest1.concat(arrayTest2) //[1,2,3,4]
@@ -106,8 +104,90 @@ arrayTest.findIndex(x => x === 5) //2
 
 arrayTest.includes(5,1) //true
 
+//LOOP
+const list = ['a', 'b', 'c']
+let i = 0
+//While loop
+while (i < list.length) {
+    console.log(list[i], i) //value index
+    if(i === 1) continue
+    i = i + 1
+    if(i === 1) break
+}
 
+// Do.. while loop
+do {
+    console.log(list[i], i) //value index
+    i = i + 1
+} while (i < list.length)
 
+//For
+for (let i = 0; i < list.length; i++) {
+    console.log(list[i], i) //value index
+}
 
+//For...of
+for (const value of list) {
+    console.log(value) //value
+}
 
+//FUNCTION
+function saySomeThing(text) {
+    // do something
+    return text
+}
+
+let say = saySomeThing('Hi!')
+console.log(say)
+
+//ARROW FUNCTIONS
+const getData = () => {
+    //do something
+}
+
+//OBJECTS
+const car = {
+    color: 'blue'
+}
+
+//OBJECTS PROPERTIES
+car.color = 'white' // update color properties
+car.model = 'Mercedes' // add new model properties
+delete car.model // delete model properties
+
+//OBJECTS METHODS
+car.start = function() {
+    console.log('Start')
+}
+car.start()
+
+//CLASSES
+class Person {
+    hello() {
+        return 'Hello, I am person'
+    }
+}
+const person1 = new Person()
+person1.hello()
+
+//INHERITANCE
+class Programmer extends Person {
+    hello() {
+    return super.hello() +
+        '. I am also a programmer.'
+    }
+}
+const flavio = new Programmer()
+console.log(flavio.hello())
+
+//ASYNCHRONOUS PROGRAMMING AND CALLBACKS
+function doSomething(callback){
+    //do things
+    const result = 'Success'
+    callback(result)
+}
+
+doSomething(function notifyResult(result){
+    console.log(result)
+})
 
