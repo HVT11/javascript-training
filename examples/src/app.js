@@ -191,3 +191,45 @@ doSomething(function notifyResult(result){
     console.log(result)
 })
 
+//PROMISES
+const doSomething1 = new Promise(
+    (resolve, reject) => {
+        const success = true
+        if (success) {
+            resolve('ok')
+        } 
+        else {
+            reject('this error occurred')
+        }
+    }
+)
+
+doSomething1
+    .then(result => {
+        console.log(result)
+    })
+
+//ASYNC & AWAIT
+const getData1 = () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() =>
+            resolve('some data'), 2000)
+    })
+}
+
+const doSomething2 = async () => {
+    const data = await getData1()
+    console.log(data)
+}
+
+doSomething2()
+
+//VARIABLES SCOPE
+function getData() {
+    if (true) {
+    var data1 = 'some data 1'
+    let data2 = 'some data 2'
+    }
+    console.log(data1) // some data 1
+    console.log(data2) // Error
+}
