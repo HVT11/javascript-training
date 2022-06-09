@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examples DOM</title>
+    <style>
+        .active {
+		    border: 2px solid blue;
+	    }
+
+	    .warning {
+		    border: 2px solid red;
+	    }
+
+        .hidden {
+            display: none;
+        }
+
+        div {
+            border: 2px dashed lightgray;
+            padding: 15px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Examples DOM</h1>
+    <div id="demo-id">Demo ID</div>
+    <div class="demo-class">Demo Class 1</div>
+    <div class="demo-class">Demo Class 2</div>
+
+    <!-- Modifying Attributes -->
+    <img src="https://js-tutorials.nyc3.digitaloceanspaces.com/shark.png">
+
+    <!-- Modifying Classes -->
+    <div id="div1">Div 1</div>
+	<div class="active">Div 2</div>
+
+    <!-- Modifying Styles -->
+    <div style="height: 100px;
+	            width: 100px;
+	            border: 2px solid black;" id="shape">Block</div>
+
+    <script src="app.js"></script>
+</body>
+</html>
