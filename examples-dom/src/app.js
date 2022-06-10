@@ -22,7 +22,58 @@ activeDiv.classList.replace('active', 'warning') // Replace active class with wa
 
 //Modifying Styles
 const shape = document.querySelector('#shape')
-shape.style.borderRadius = '50%';
-shape.style.display = 'flex';
-shape.style.justifyContent = 'center';
-shape.style.alignItems = 'center';
+shape.style.borderRadius = '50%'
+shape.style.display = 'flex'
+shape.style.justifyContent = 'center'
+shape.style.alignItems = 'center'
+
+//EVENTS DOM
+const changeText = () =>{
+    document.querySelector('p').textContent = 'I changed because of an inline event handler.'
+}
+
+const alertText = () =>{
+    alert('Will I alert?')
+}
+
+//document.querySelector('button').onclick = changeText
+document.querySelector('button').addEventListener('click', changeText)
+
+// Test the key and code properties
+document.addEventListener('keyup', event => {
+	console.log('key: ' + event.key);
+	console.log('code: ' + event.code);
+});
+
+
+document.addEventListener('keydown', event => {
+    var element = document.querySelector('.key-name')
+
+    //set variables for keydown codes
+    const a = 'a';
+    const s = 's';
+    const d = 'd';
+    const w = 'w';
+
+    //Set a direction for each code
+    switch(event.key) {
+        case a:
+            element.textContent = 'Left'
+            break
+        case s:
+            element.textContent = 'Down'
+            break
+        case d:
+            element.textContent = 'Right'
+            break
+        case w:
+            element.textContent = 'Up'
+            break  
+    }    
+})
+
+const section = document.querySelector('section')
+
+section.addEventListener('click', event => {
+    console.log(event.target)
+})
