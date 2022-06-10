@@ -231,5 +231,5 @@ function getData() {
     let data2 = 'some data 2'
     }
     console.log(data1) // some data 1
-    console.log(data2) // Error
+    // console.log(data2)  //Error
 }
