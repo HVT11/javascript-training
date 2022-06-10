@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8 />
+    <style type="text/css">
+        body {
+            margin: 30px;
+        }
+    </style>
+    <title>Count and display items of a dropdown list - w3resource</title>
+</head>
+
+<body>
+    <form>
+        Select your favorite Color :
+        <select id="mySelect">
+            <option>Red</option>
+            <option>Green</option>
+            <option>Blue</option>
+            <option>White</option>
+        </select>
+        <input type="button" onclick="getOptions()" value="Count and Output all items">
+    </form>
+
+    <script>
+        const getOptions = () => {
+            const list = document.getElementById('mySelect')
+            let count = 0
+            let color = ''
+            for (let index = 0; index < list.length; index++) {
+                count++
+                color = color + list.options[index].innerHTML + '; '
+            }
+            alert('Count: '+ count + ' and List color: ' + color)
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8 />
+</head>
+
+<body>
+    <p><a id="w3r" type="text/html" hreflang="en-us" rel="nofollow" target="_self"
+            href="https://www.w3resource.com/">w3resource</a></p>
+    <button onclick="getAttributes()">Click here to get attributes value</button>
+
+    <script>
+        const getAttributes = () => {
+            const a = document.getElementById('w3r')
+            const href = a.href
+            const hreflang = a.hreflang
+            const ref = a.ref
+            const target = a.target
+            const type = a.type
+
+            alert('Href: '+ a +'; Hreflang: '+ hreflang +'; ref: '+ref +'; target: '+ target +'; type: '+ type)
+        }
+    </script>
+</body>
+</html>
