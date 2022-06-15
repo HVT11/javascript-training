@@ -1,0 +1,161 @@
+.header {
+    height: 50px;
+    border: 1px solid var(--border-color);
+}
+
+.logo {
+    margin-left: 30px;
+    font-size: 20px;
+}
+
+.app {
+    height: calc(100% - 50px); 
+}
+
+.sidebar {
+    background-color: #4a4e58;
+}
+
+.btn-add {
+    margin: 10px 10%;
+    width: 80%;
+    font-size: 20px;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: 5px;
+}
+
+.btn-add:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.item {
+    padding: 5px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.item:hover {
+    cursor: pointer;
+}
+
+.label {
+    margin: 10px;
+}
+
+.item--active {
+    color: var(--primary-color);
+    background-color: #00000033;
+    border-left: 3px solid var(--primary-color);
+}
+
+.main {
+    height: 100%;
+    background-color: #ebedf0;
+    padding: 10px;
+}
+
+.toolbar {
+    width: 100%;
+    background-color: var(--white-color);
+    padding-left: 10px;
+}
+
+.title, .search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search {
+    display: none;
+}
+
+.title__label {
+    margin: 0;
+}
+
+.input-search {
+    width: 95%;
+}
+
+.box-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.box-icon:hover {
+    background-color: #f4f5f9;
+}
+
+.icon {
+    font-size: 15px;
+}
+
+.icon:hover {
+    cursor: pointer;
+}
+
+.avatar-img {
+    width: 20%;
+}
+
+.avatar {
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: aquamarine;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.table {
+    width: 100%;
+    text-align: left;
+}
+
+.table-row {
+    display: flex;
+    align-items: center;
+    height: 55px;
+    border: 1px solid var(--border-color);
+}
+
+.border-bot-primary {
+    border-bottom: 1px solid var(--primary-color);
+}
+
+.table-col {
+    width: 25%;
+}
+
+.user-status {
+    width: 50%;
+    padding: 4px;
+    text-align: center;
+    border-radius: 8px;
+    font-size: 16px;
+    color: var(--danger-color);
+    background-color: var(--danger-bg);
+}
+
+.user-status--active {
+    color: var(--success-color);
+    background-color: var(--success-bg);
+}

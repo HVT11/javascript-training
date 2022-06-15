@@ -5,10 +5,76 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Practice One</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./assets/styles/base.css">
     <link rel="stylesheet" href="./assets/styles/main.css">
 </head>
 <body>
-    <h1>Hello, world!</h1>
+    <header class="header">
+        <h1 class="logo">User Manager</h1>
+    </header>
+
+    <div class="app grid">
+        <div class="app-container grid__row">
+            <div class="sidebar grid__column-2">
+                <button class="btn-add">+ New</button>
+                <ul class="list">
+                    <li class="item item--active">
+                        <i class="fa-solid fa-user-group"></i>
+                        <p class="label">Users</p>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="main grid__column-10">
+                <div class="grid__row">
+                    <div class="grid__column-max">
+                        <div class="toolbar">
+                            <div class="title">
+                                <h3 class="title__label">Users</h3>
+                                <div class="box-icon">
+                                    <i class="icon fa-solid fa-magnifying-glass"></i>
+                                </div>
+                            </div>
+                            <div class="search">
+                                <input type="text" class="input-search">
+                                <div class="box-icon">
+                                    <i class="icon fa-solid fa-xmark"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <tr class="table-row bg-light border-bot-primary">
+                                <th class="table-col"></th>
+                                <th class="table-col">Full name</th>
+                                <th class="table-col">Status</th>
+                                <th class="table-col">Email</th>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="table-col"><img src="https://kenh14cdn.com/2019/2/22/photo-1-1550802045779701256954.jpg" alt="" class="avatar"></td>
+                                <td class="table-col">Iron man</td>
+                                <td class="table-col">
+                                    <div class="user-status user-status--active">Active</div>
+                                </td>
+                                <td class="table-col">Germany</td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="table-col"><div class="avatar">T</div></td>
+                                <td class="table-col">Iron man</td>
+                                <td class="table-col">
+                                    <div class="user-status">Not active</div>
+                                </td>
+                                <td class="table-col">Germany</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="">
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script type="module" src="./assets/script/main.js"></script>
 </body>
