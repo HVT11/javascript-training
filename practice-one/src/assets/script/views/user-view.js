@@ -3,6 +3,11 @@ export default class View {
         this.template = template
 
         this.listUser = this.getElement('#list-user')
+        this.inputUname = this.getElement('#input-username')
+        this.btnAddUser = this.getElement('#btn-add-user')
+        this.btnOpenFormAdd = this.getElement('#btn-open-form-add')
+        this.btnCloseFormAdd = this.getElement('#btn-close-form-add')
+        this.modal = this.getElement('#modal')
     }
 
     getElement(selector) {
@@ -11,12 +16,28 @@ export default class View {
         return element
     }
 
+    openModal() {
+        this.modal.classList.add('modal--active')
+    }
+
+    closeModal() {
+        this.modal.classList.remove('modal--active')
+    }
+
     createElement(tag, className) {
         const element = document.createElement(tag)
     
         if (className) element.classList.add(className)
     
         return element
+    }
+
+    get _userNameText() {
+        return this.inputUname.value
+    }
+      
+    _resetInput() {
+        this.inputUname.value = ''
     }
 
     displayUsers(users) {
@@ -34,5 +55,28 @@ export default class View {
             console.log(this.template.show(users))
         }
 
+    }
+
+    bindAddNewUser(handler) {
+        this.btnAddUser.addEventListener('click', event => {
+            if (this._userNameText !== '') {
+                handler(this._userNameText)
+                this._resetInput()
+                this.closeModal()
+            }
+        })
+    }
+
+    bindOpenModalAddUser() {
+        this.btnOpenFormAdd.addEventListener('click', event => {
+            this.openModal()
+        })
+    }
+
+    bindCloseModalAddUser() {
+        this.btnCloseFormAdd.addEventListener('click', event => {
+            this._resetInput()
+            this.closeModal()
+        })
     }
 }

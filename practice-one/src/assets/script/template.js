@@ -25,7 +25,7 @@ export default class Template {
 
     checkAvatar(url, username) {
         if(url !== '') return `<img src="${url}" alt="" class="avatar">`
-        else return `<div class="avatar">${username.charAt(0)}</div>`
+        else return `<div class="avatar">${username.charAt(0).toUpperCase()}</div>`
     }
 
     show(data) {

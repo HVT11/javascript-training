@@ -17,7 +17,7 @@
     <div class="app grid">
         <div class="app-container grid__row">
             <div class="sidebar grid__column-2">
-                <button class="btn-add">+ New</button>
+                <button class="btn-add" id="btn-open-form-add">+ New</button>
                 <ul class="list">
                     <li class="item item--active">
                         <i class="fa-solid fa-user-group"></i>
@@ -139,13 +139,13 @@
         <div class="modal__body">
             <div class="modal-header">
                 <h3 class="modal-heading">Enter user name</h3>
-                <div class="box-icon">
-                    <i class="fa-solid fa-xmark"></i>
+                <div class="box-icon" id="btn-close-form-add">
+                    <i class="fa-solid fa-xmark" ></i>
                 </div>
             </div>
             <div class="form-controls">
-                <input type="text" name="" id="" class="input-uname">
-                <button class="btn" id="">Save</button>
+                <input type="text" name="" id="input-username" class="input-uname">
+                <button class="btn" id="btn-add-user">Save</button>
             </div>
         </div>
     </div>
