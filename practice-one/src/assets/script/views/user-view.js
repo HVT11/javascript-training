@@ -1,5 +1,7 @@
 export default class View {
-    constructor() {
+    constructor(template) {
+        this.template = template
+
         this.listUser = this.getElement('#list-user')
     }
 
@@ -18,41 +20,19 @@ export default class View {
     }
 
     displayUsers(users) {
-        while (this.todoList.firstChild) {
-            this.todoList.removeChild(this.todoList.firstChild)
+        while (this.listUser.firstChild) {
+            this.listUser.removeChild(this.listUser.firstChild)
         }
-        
+
         if (users.length === 0) {
             const p = this.createElement('p')
             p.textContent = 'Not have user! Add a new user ?'
             this.listUser.append(p)
         }
         else {
-            users.forEach(user => {
-                const tr = this.createElement('tr', 'table-row')
-
-                const tdImg = this.createElement('td', 'table-col')
-                const avatar = this.createElement('div', 'avatar')
-                avatar.textContent= 'I'
-                tdImg.append(avatar)
-                
-                const tdName = this.createElement('td', 'table-col')
-                tdName.textContent = user.username
-                
-                const tdStatus = this.createElement('td', 'table-col')
-                const status = this.createElement('div', 'user-status')
-                status.textContent = 'Not active'
-                status.checked = user.status
-                tdStatus.append(status)
-
-                const tdEmail = this.createElement('td', 'table-col')
-                tdEmail.textContent = user.email
-
-                tr.append(tdImg, tdName, tdStatus, tdEmail)
-
-                this.listUser.append(tr)
-            })
+            this.listUser.innerHTML = this.template.show(users)
+            console.log(this.template.show(users))
         }
-    }
 
+    }
 }

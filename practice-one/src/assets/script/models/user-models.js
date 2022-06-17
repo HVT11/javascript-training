@@ -12,9 +12,10 @@ export default class Model {
         localStorage.setItem('users', JSON.stringify(users))
     }
 
-    addUser(Username) {
+    addNewUser(Username) {
         const user = {
             id: this.users.length > 0 ? this.users[this.users.length - 1].id + 1 : 1,
+            avatar: '',
             username: Username,
             email: '',
             status: false,

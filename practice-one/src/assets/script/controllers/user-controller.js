@@ -11,8 +11,5 @@ export default class Controllers {
     onUserListChanged = users => {
         this.view.displayUsers(users)
     }
-
-    handleAddTodo = todoText => {
-        this.model.addUser(todoText)
-    }
 }
+
