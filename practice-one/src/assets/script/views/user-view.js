@@ -51,10 +51,8 @@ export default class View {
             this.listUser.append(p)
         }
         else {
-            this.listUser.innerHTML = this.template.show(users)
-            console.log(this.template.show(users))
+            this.listUser.innerHTML = this.template.renderListUser(users)
         }
-
     }
 
     bindAddNewUser(handler) {

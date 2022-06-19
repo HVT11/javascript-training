@@ -1,7 +1,7 @@
 export default class Template {
     constructor() {
         this.defautTemplate
-        = `<tr class="table-row">
+        = `<tr class="table-row" id="row-{{id}}">
                 <td class="table-col">
                     {{avatar}}
                 </td>
@@ -28,11 +28,12 @@ export default class Template {
         else return `<div class="avatar">${username.charAt(0).toUpperCase()}</div>`
     }
 
-    show(data) {
+    renderListUser(data) {
         var i, l
         var view = ''
         for(i = 0, l = data.length; i < l; i++){
             var template = this.defautTemplate
+            template = template.replace('{{id}}', data[i].id)
             template = template.replace('{{avatar}}', this.checkAvatar(data[i].avatar, data[i].username))
             template = template.replace('{{email}}', data[i].email)
             template = template.replace('{{username}}', data[i].username)
