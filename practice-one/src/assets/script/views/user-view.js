@@ -1,7 +1,14 @@
 export default class View {
     constructor(template) {
         this.template = template
+        
+        this.detailStatus = this.getElement('#detail-status')
+        this.detailName = this.getElement('#detail-name')
+        this.detailAvatar = this.getElement('#detail-avatar')
+        this.detailEmail = this.getElement('#detail-email')
 
+        this.appMain = this.getElement('#app-main')
+        this.appSub = this.getElement('#app-sub')
         this.listUser = this.getElement('#list-user')
         this.inputUname = this.getElement('#input-username')
         this.btnAddUser = this.getElement('#btn-add-user')
@@ -14,6 +21,12 @@ export default class View {
         const element = document.querySelector(selector)
 
         return element
+    }
+
+    getElementAll(selector) {
+        const elements = document.querySelectorAll(selector)
+
+        return elements
     }
 
     openModal() {
@@ -76,5 +89,47 @@ export default class View {
             this._resetInput()
             this.closeModal()
         })
+    }
+
+    bindRowDataUser(users) {
+        users.forEach(element => {
+            var userDataRow = this.getElement('#row-'+element.id)
+            userDataRow.addEventListener('click', event => {
+                this.enableSub()
+                this.viewDetail(element.username, element.avatar, element.status, element.email)
+                this.getElementAll('.table-row').forEach(element => {
+                    if(element.classList.contains("table-row--active")) element.classList.remove("table-row--active")
+                })
+                userDataRow.classList.add('table-row--active')
+            })
+        })
+    }
+
+    enableSub() {
+        this.appMain.className = 'grid__column-7'
+        this.appSub.className = 'grid__column-3'
+        this.appSub.style.display = 'block'
+    }
+
+    viewDetail(uname, avatar, status, email) {
+        //Check avatar url
+        if(avatar !== '') this.detailAvatar.backgroundImage = `url(${avatar})`
+        else this.detailAvatar.innerHTML = uname.charAt(0).toUpperCase()
+
+        //Check status
+        if(status) {
+            this.detailStatus.textContent = 'Active'
+            this.detailStatus.classList.add('user-status--active')
+        }
+        else {
+            this.detailStatus.textContent = 'Not active'
+            if(this.detailStatus.classList.contains('user-status--active')) this.detailStatus.classList.remove('user-status--active')
+        }
+
+        this.detailName.textContent = uname
+
+        //Check email
+        if(email !== '') this.detailEmail.textContent = email
+        else this.detailEmail.textContent = 'Unknown'
     }
 }

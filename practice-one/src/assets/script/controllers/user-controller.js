@@ -6,15 +6,18 @@ export default class Controllers {
         this.model.bindUserListChanged(this.onUserListChanged)
         
         this.view.bindOpenModalAddUser()        
-        this.view.bindCloseModalAddUser()   
+        this.view.bindCloseModalAddUser()
         
         this.view.bindAddNewUser(this.handleAddNewUser)
         
-        this.onUserListChanged(this.model.users)
+        this.onUserListChanged(this.model.users) 
+
+        this.view.bindRowDataUser(this.model.users)
     }
 
     onUserListChanged = users => {
         this.view.displayUsers(users)
+        this.view.bindRowDataUser(this.model.users)
     }
 
     handleAddNewUser = userNameText => {

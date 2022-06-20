@@ -120,6 +120,7 @@
     height: 40px;
     border-radius: 50%;
     background-color: aquamarine;
+    color: var(--white-color);
     font-size: 20px;
     display: flex;
     align-items: center;
@@ -180,6 +181,10 @@
     background-color: var(--success-bg);
 }
 
+.sub {
+    display: none;
+}
+
 .personal {
     display: flex;
     flex-direction: column;
@@ -190,6 +195,13 @@
 .personal__img {
     width: 180px;
     height: 180px;
+    background-color: green;
+    background-size: cover;
+    color: var(--white-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 8rem;
 }
 
 .info {

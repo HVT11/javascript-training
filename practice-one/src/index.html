@@ -28,7 +28,7 @@
 
             <div class="main grid__column-10">
                 <div class="grid__row">
-                    <div class="grid__column-7">
+                    <div class="grid__column-max" id="app-main">
                         <div class="toolbar">
                             <div class="title">
                                 <h3 class="title__label">Users</h3>
@@ -57,13 +57,13 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="grid__column-3">
+                    <div class="sub" id="app-sub">
                         <div class="info-view" >
                             <div class="toolbar">
                                 <div class="title">
                                     <div class="d-flex">
                                         <h3 class="title__label">User information</h3>
-                                        <div class="user-status mg-left-m user-status--active">Active</div>
+                                        <div class="user-status mg-left-m user-status--active" id="detail-status">Active</div>
                                     </div>
                                     <div class="box-icon">
                                         <i class="fa-solid fa-pen"></i>
@@ -71,15 +71,15 @@
                                 </div>
                             </div>
                             <div class="personal">
-                                <img src="https://kenh14cdn.com/2019/2/22/photo-1-1550802045779701256954.jpg" alt="" class="personal__img">
-                                <h3 class="personal__name">Ironman</h3>
+                                <div class="personal__img" id="detail-avatar"></div>
+                                <h3 class="personal__name" id="detail-name"></h3>
                             </div>
                             <div class="info">
                                 <div class="d-flex">
                                     <i class="fa-solid fa-envelope"></i>
                                     <p class="info__email">Email:</p>
                                 </div>
-                                <p class="email">ironman@gmail.com</p>
+                                <p class="email" id="detail-email"></p>
                             </div>
                         </div>
 
