@@ -15,9 +15,11 @@
 >`git clone https://github.com/HVT11/javascript-training.git`  
 ##### Step two: **Run project**
 - Change the path to the folder you just cloned to your computer 
->`cd javascript-training/practice-one`
+>`cd javascript-training`
 - Change the path to the folder you just cloned to your computer 
 >`git checkout feature/practice-one`
+- Change the path to the folder practice-one 
+>`cd practice-one`
 - Install npm
 >`npm i`
 - Run start project
