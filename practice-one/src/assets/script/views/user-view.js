@@ -26,6 +26,7 @@ export default class View {
         this.editCheckStatus = helper.getElement('#edit-check-status')
         this.editStatus = helper.getElement('#edit-status')
 
+        this.btnDelete = helper.getElement('#btn-delete')
         this.btnSave = helper.getElement('#btn-save')
         this.btnEdit = helper.getElement('#btn-edit')
         this.btnBack = helper.getElement('#btn-back')
@@ -200,6 +201,12 @@ export default class View {
             var status =  helper.getCheckbox(this.editCheckStatus)
 
             handler(id, username, avatar, status, email)
+        })
+    }
+
+    bindDeleteUser(handler) {
+        this.btnDelete.addEventListener('click', event => {
+            handler(parseInt(sessionStorage.getItem('userID')))
         })
     }
 }

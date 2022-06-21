@@ -27,13 +27,24 @@ export default class Model {
     }
 
     editUser(id, username, avatar, status, email) {
-        const userEdit = {id: id, avatar: avatar, username: username, email: email, status: status}
-        console.log(this.users)
+        const userEdit = {
+            id: id, 
+            avatar: avatar, 
+            username: username, 
+            email: email, 
+            status: status
+        }
         this.users = this.users.map(user => {
             if(user.id === id) return userEdit
             else return user
         })
-        console.log(this.users)
+
+        this._commit(this.users)
+    }
+
+    deleteUser(id) {
+        this.users = this.users.filter(user => user.id !== id) 
+
         this._commit(this.users)
     }
 }

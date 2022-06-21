@@ -14,6 +14,7 @@ export default class Controllers {
         
         this.view.bindAddNewUser(this.handleAddNewUser)
         this.view.bindEditUser(this.handleEditUser)
+        this.view.bindDeleteUser(this.handleDeleteUser)
         
         this.onUserListChanged(this.model.users) 
 
@@ -31,6 +32,10 @@ export default class Controllers {
 
     handleEditUser = (id, username, avatar, status, email) => {
         this.model.editUser(id, username, avatar, status, email)
+    }
+
+    handleDeleteUser = id => {
+        this.model.deleteUser(id)
     }
 }
 
