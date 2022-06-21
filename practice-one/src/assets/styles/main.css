@@ -208,6 +208,19 @@
     padding: 10px;
 }
 
+.info-view {
+    display: none;
+}
+
+.info-edit {
+    display: none;
+}
+
+.info--active {
+    display: block;
+}
+
+
 .info__email {
     display: block;
     margin-left: 10px;
@@ -265,6 +278,13 @@
 .input-img {
     width: 95px;
     height: 95px;
+    background-color: aquamarine;
+    background-size: cover;
+    color: var(--white-color);
+    font-size: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* SWITCH */

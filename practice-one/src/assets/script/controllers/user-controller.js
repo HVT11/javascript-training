@@ -7,8 +7,13 @@ export default class Controllers {
         
         this.view.bindOpenModalAddUser()        
         this.view.bindCloseModalAddUser()
+        this.view.bindOpenFormEdit()
+        this.view.bindCloseFormEdit()
+        this.view.bindToggleStatus()
+        this.view.bindChangeImg()
         
         this.view.bindAddNewUser(this.handleAddNewUser)
+        this.view.bindEditUser(this.handleEditUser)
         
         this.onUserListChanged(this.model.users) 
 
@@ -24,5 +29,8 @@ export default class Controllers {
         this.model.addNewUser(userNameText)
     }
 
+    handleEditUser = (id, username, avatar, status, email) => {
+        this.model.editUser(id, username, avatar, status, email)
+    }
 }
 

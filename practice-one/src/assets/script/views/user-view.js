@@ -1,32 +1,39 @@
+import * as helper from "../helpers/helper"
+
 export default class View {
     constructor(template) {
         this.template = template
         
-        this.detailStatus = this.getElement('#detail-status')
-        this.detailName = this.getElement('#detail-name')
-        this.detailAvatar = this.getElement('#detail-avatar')
-        this.detailEmail = this.getElement('#detail-email')
+        this.detailStatus = helper.getElement('#detail-status')
+        this.detailName = helper.getElement('#detail-name')
+        this.detailAvatar = helper.getElement('#detail-avatar')
+        this.detailEmail = helper.getElement('#detail-email')
 
-        this.appMain = this.getElement('#app-main')
-        this.appSub = this.getElement('#app-sub')
-        this.listUser = this.getElement('#list-user')
-        this.inputUname = this.getElement('#input-username')
-        this.btnAddUser = this.getElement('#btn-add-user')
-        this.btnOpenFormAdd = this.getElement('#btn-open-form-add')
-        this.btnCloseFormAdd = this.getElement('#btn-close-form-add')
-        this.modal = this.getElement('#modal')
-    }
+        this.appMain = helper.getElement('#app-main')
+        this.appSub = helper.getElement('#app-sub')
 
-    getElement(selector) {
-        const element = document.querySelector(selector)
+        this.infoView = helper.getElement('#info-view')
+        this.infoEdit = helper.getElement('#info-edit')
 
-        return element
-    }
+        this.listUser = helper.getElement('#list-user')
+        this.inputUsername = helper.getElement('#input-username')
 
-    getElementAll(selector) {
-        const elements = document.querySelectorAll(selector)
+        this.editName = helper.getElement('#edit-name')
+        this.editEmail = helper.getElement('#edit-email')
+        this.editAvatarImg = helper.getElement('#edit-avatar-img')
+        this.editAvatarUrl = helper.getElement('#edit-avatar-url')
+        this.editName = helper.getElement('#edit-name')
+        this.editCheckStatus = helper.getElement('#edit-check-status')
+        this.editStatus = helper.getElement('#edit-status')
 
-        return elements
+        this.btnSave = helper.getElement('#btn-save')
+        this.btnEdit = helper.getElement('#btn-edit')
+        this.btnBack = helper.getElement('#btn-back')
+        this.btnAddUser = helper.getElement('#btn-add-user')
+        this.btnOpenFormAdd = helper.getElement('#btn-open-form-add')
+        this.btnCloseFormAdd = helper.getElement('#btn-close-form-add')
+        
+        this.modal = helper.getElement('#modal')
     }
 
     openModal() {
@@ -37,29 +44,51 @@ export default class View {
         this.modal.classList.remove('modal--active')
     }
 
-    createElement(tag, className) {
-        const element = document.createElement(tag)
-    
-        if (className) element.classList.add(className)
-    
-        return element
+    enableSub() {
+        this.appMain.className = 'grid__column-7'
+        this.appSub.className = 'grid__column-3'
+        this.appSub.style.display = 'block'
+    }
+
+    openFormEdit() {
+        this.infoView.classList.remove('info--active')
+        this.infoEdit.classList.add('info--active')
+    }
+
+    closeFormEdit() {
+        this.infoEdit.classList.remove('info--active')
+        this.infoView.classList.add('info--active')
+    }
+
+    onToggleStatus(element) {
+        if(this.editCheckStatus.checked) {
+            element.innerHTML = 'Active'
+            element.classList.add('user-status--active')
+        }
+        else{
+            element.innerHTML = 'Not active'
+            element.classList.remove('user-status--active')
+        }
+    }
+
+    onChangeImg(inputUrl, element) {
+        element.innerHTML = ''
+        element.style.backgroundImage = `url('${inputUrl.value}')`
     }
 
     get _userNameText() {
-        return this.inputUname.value
+        return this.inputUsername.value
     }
       
     _resetInput() {
-        this.inputUname.value = ''
+        this.inputUsername.value = ''
     }
 
     displayUsers(users) {
-        while (this.listUser.firstChild) {
-            this.listUser.removeChild(this.listUser.firstChild)
-        }
+        this.listUser.innerHTML = ''
 
         if (users.length === 0) {
-            const p = this.createElement('p')
+            const p = helper.createElement('p')
             p.textContent = 'Not have user! Add a new user ?'
             this.listUser.append(p)
         }
@@ -91,13 +120,38 @@ export default class View {
         })
     }
 
+    bindOpenFormEdit() {
+        this.btnEdit.addEventListener('click', event => {
+            this.openFormEdit()
+        })
+    }
+
+    bindCloseFormEdit() {
+        this.btnBack.addEventListener('click', event => {
+            this.closeFormEdit()
+        })
+    }
+
+    bindToggleStatus() {
+        this.editCheckStatus.addEventListener('change', event => {
+            this.onToggleStatus(this.editStatus)
+        })
+    }
+
+    bindChangeImg() {
+        this.editAvatarUrl.addEventListener('input', event => {
+            this.onChangeImg(this.editAvatarUrl, this.editAvatarImg)
+        })
+    }
+
     bindRowDataUser(users) {
         users.forEach(element => {
-            var userDataRow = this.getElement('#row-'+element.id)
+            var userDataRow = helper.getElement('#row-'+element.id)
             userDataRow.addEventListener('click', event => {
+                sessionStorage.setItem('userID', element.id)
                 this.enableSub()
                 this.viewDetail(element.username, element.avatar, element.status, element.email)
-                this.getElementAll('.table-row').forEach(element => {
+                helper.getElementAll('.table-row').forEach(element => {
                     if(element.classList.contains("table-row--active")) element.classList.remove("table-row--active")
                 })
                 userDataRow.classList.add('table-row--active')
@@ -105,31 +159,47 @@ export default class View {
         })
     }
 
-    enableSub() {
-        this.appMain.className = 'grid__column-7'
-        this.appSub.className = 'grid__column-3'
-        this.appSub.style.display = 'block'
-    }
-
-    viewDetail(uname, avatar, status, email) {
-        //Check avatar url
-        if(avatar !== '') this.detailAvatar.backgroundImage = `url(${avatar})`
-        else this.detailAvatar.innerHTML = uname.charAt(0).toUpperCase()
-
-        //Check status
-        if(status) {
-            this.detailStatus.textContent = 'Active'
-            this.detailStatus.classList.add('user-status--active')
+    viewDetail(username, avatar, status, email) {
+        //Validate avatar url
+        if(helper.validateAvatarUrl(avatar, this.detailAvatar)) {
+            this.detailAvatar.style.backgroundImage = `url('${avatar}')`
         }
         else {
-            this.detailStatus.textContent = 'Not active'
-            if(this.detailStatus.classList.contains('user-status--active')) this.detailStatus.classList.remove('user-status--active')
+            this.detailAvatar.innerHTML = username.charAt(0).toUpperCase()
         }
 
-        this.detailName.textContent = uname
+        if(helper.validateAvatarUrl(avatar, this.editAvatarImg)) {
+            this.editAvatarImg.style.backgroundImage = `url('${avatar}')`
+        }
+        else {
+            this.editAvatarImg.innerHTML = username.charAt(0).toUpperCase()
+        }
+        
+        this.editAvatarUrl.value = avatar
 
-        //Check email
-        if(email !== '') this.detailEmail.textContent = email
-        else this.detailEmail.textContent = 'Unknown'
+        //Validate status
+        helper.validateStatus(status, this.detailStatus, 'user-status--active')
+        helper.validateStatus(status, this.editStatus, 'user-status--active')
+        helper.toggleStatus(status, this.editCheckStatus)
+        
+
+        //Validate email
+        helper.validateEmail(email, this.detailEmail)
+        this.editEmail.value = email
+        
+        this.detailName.textContent = username
+        this.editName.value = username
+    }
+
+    bindEditUser(handler) {
+        this.btnSave.addEventListener('click', event => {
+            var id = parseInt(sessionStorage.getItem('userID'))
+            var username =  helper.getInput(this.editName)
+            var email =  helper.getInput(this.editEmail)
+            var avatar =  helper.getInput(this.editAvatarUrl)
+            var status =  helper.getCheckbox(this.editCheckStatus)
+
+            handler(id, username, avatar, status, email)
+        })
     }
 }

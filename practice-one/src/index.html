@@ -58,14 +58,14 @@
                         </table>
                     </div>
                     <div class="sub" id="app-sub">
-                        <div class="info-view" >
+                        <div class="info-view info--active" id="info-view">
                             <div class="toolbar">
                                 <div class="title">
                                     <div class="d-flex">
                                         <h3 class="title__label">User information</h3>
                                         <div class="user-status mg-left-m user-status--active" id="detail-status">Active</div>
                                     </div>
-                                    <div class="box-icon">
+                                    <div class="box-icon" id="btn-edit">
                                         <i class="fa-solid fa-pen"></i>
                                     </div>
                                 </div>
@@ -83,10 +83,10 @@
                             </div>
                         </div>
 
-                        <div class="info-edit" style="display: none;">
+                        <div class="info-edit" id="info-edit">
                             <div class="toolbar">
                                 <div class="d-flex">
-                                    <div class="box-icon">
+                                    <div class="box-icon" id="btn-back">
                                         <i class="fa-solid fa-arrow-left"></i>
                                     </div>
                                     <h3 class="title__label">Edit</h3>
@@ -95,34 +95,34 @@
 
                             <div class="padding-m">
                                 <div class="controls">
-                                    <button class="btn">Delete</button>
-                                    <button class="btn btn-primary">Save</button>
+                                    <button class="btn" id="btn-delete">Delete</button>
+                                    <button class="btn btn-primary" id="btn-save">Save</button>
                                 </div>
 
                                 <div class="form">
                                     <div class="input-box">
                                         <p class="input-box__label">Full name</p>
-                                        <input type="text" name="" id="" class="input-box__input" style="width: 250px;">
+                                        <input type="text" name="" id="edit-name" class="input-box__input" style="width: 250px;">
                                     </div>
 
                                     <div class="input-box">
                                         <p class="input-box__label">Email</p>
-                                        <input type="text" name="" id="" class="input-box__input" style="width: 250px;">
+                                        <input type="text" name="" id="edit-email" class="input-box__input" style="width: 250px;">
                                     </div>
 
                                     <div class="input-box" style="align-items: flex-start;">
                                         <p class="input-box__label">Avatar</p>
-                                        <img src="https://kenh14cdn.com/2019/2/22/photo-1-1550802045779701256954.jpg" alt="" class="input-img">
-                                        <input type="url" name="" id="" class="input-box__input">
+                                        <div class="input-img" id="edit-avatar-img"></div>
+                                        <input type="url" name="" id="edit-avatar-url" class="input-box__input">
                                     </div>
 
                                     <div class="input-box">
                                         <p class="input-box__label">Status</p>
                                         <label class="switch">
-                                            <input type="checkbox" checked>
+                                            <input type="checkbox" id="edit-check-status">
                                             <span class="slider round"></span>
                                         </label>
-                                        <div class="user-status mg-left-m user-status--active">Active</div>
+                                        <div class="user-status mg-left-m" id="edit-status">Active</div>
                                     </div>
                                 </div>
                             </div>

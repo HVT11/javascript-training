@@ -12,17 +12,28 @@ export default class Model {
         localStorage.setItem('users', JSON.stringify(users))
     }
 
-    addNewUser(Username) {
+    addNewUser(username) {
         const user = {
             id: this.users.length > 0 ? this.users[this.users.length - 1].id + 1 : 1,
             avatar: '',
-            username: Username,
+            username: username,
             email: '',
-            status: false,
+            status: false
         }
 
         this.users.push(user)
 
+        this._commit(this.users)
+    }
+
+    editUser(id, username, avatar, status, email) {
+        const userEdit = {id: id, avatar: avatar, username: username, email: email, status: status}
+        console.log(this.users)
+        this.users = this.users.map(user => {
+            if(user.id === id) return userEdit
+            else return user
+        })
+        console.log(this.users)
         this._commit(this.users)
     }
 }
