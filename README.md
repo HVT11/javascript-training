@@ -16,6 +16,8 @@
 ##### Step two: **Run project**
 - Change the path to the folder you just cloned to your computer 
 >`cd javascript-training/practice-one`
+- Change the path to the folder you just cloned to your computer 
+>`git checkout feature/practice-one`
 - Install npm
 >`npm i`
 - Run start project
