@@ -9,12 +9,15 @@ export default class Controllers {
         this.view.bindCloseModalAddUser()
         this.view.bindOpenFormEdit()
         this.view.bindCloseFormEdit()
+        this.view.bindOpenSearch()
+        this.view.bindCloseSearch()
         this.view.bindToggleStatus()
         this.view.bindChangeImg()
         
         this.view.bindAddNewUser(this.handleAddNewUser)
         this.view.bindEditUser(this.handleEditUser)
         this.view.bindDeleteUser(this.handleDeleteUser)
+        this.view.bindSearchUser(this.model.users)
         
         this.onUserListChanged(this.model.users) 
 

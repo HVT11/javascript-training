@@ -76,7 +76,6 @@
     justify-content: space-between;
 }
 
-
 .search {
     display: none;
 }
@@ -87,6 +86,14 @@
 
 .input-search {
     width: 95%;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+}
+
+.input-search:focus {
+    border: none;
+    outline: 2px solid var(--primary-color);
+    border-radius: 2px;
 }
 
 .box-icon {

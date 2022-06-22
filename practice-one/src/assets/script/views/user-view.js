@@ -12,11 +12,15 @@ export default class View {
         this.appMain = helper.getElement('#app-main')
         this.appSub = helper.getElement('#app-sub')
 
+        this.title = helper.getElement('#title')
+        this.search = helper.getElement('#search')
+
         this.infoView = helper.getElement('#info-view')
         this.infoEdit = helper.getElement('#info-edit')
 
         this.listUser = helper.getElement('#list-user')
         this.inputUsername = helper.getElement('#input-username')
+        this.inputSearch = helper.getElement('#input-search')
 
         this.editName = helper.getElement('#edit-name')
         this.editEmail = helper.getElement('#edit-email')
@@ -26,6 +30,8 @@ export default class View {
         this.editCheckStatus = helper.getElement('#edit-check-status')
         this.editStatus = helper.getElement('#edit-status')
 
+        this.btnSearch = helper.getElement('#btn-search')
+        this.btnCancelSearch = helper.getElement('#btn-cancel-search')
         this.btnDelete = helper.getElement('#btn-delete')
         this.btnSave = helper.getElement('#btn-save')
         this.btnEdit = helper.getElement('#btn-edit')
@@ -59,6 +65,16 @@ export default class View {
     closeFormEdit() {
         this.infoEdit.classList.remove('info--active')
         this.infoView.classList.add('info--active')
+    }
+
+    openSearch() {
+        this.title.style.display = 'none'
+        this.search.style.display = 'flex'
+    }
+
+    closeSearch() {
+        this.title.style.display = 'flex'
+        this.search.style.display = 'none'
     }
 
     onToggleStatus(element) {
@@ -133,6 +149,20 @@ export default class View {
         })
     }
 
+    bindOpenSearch() {
+        this.btnSearch.addEventListener('click', event => {
+            this.openSearch()
+            this.inputSearch.focus()
+        })
+    }
+
+    bindCloseSearch() {
+        this.btnCancelSearch.addEventListener('click', event => {
+            this.closeSearch()
+            location.reload()
+        })
+    }
+
     bindToggleStatus() {
         this.editCheckStatus.addEventListener('change', event => {
             this.onToggleStatus(this.editStatus)
@@ -201,12 +231,22 @@ export default class View {
             var status =  helper.getCheckbox(this.editCheckStatus)
 
             handler(id, username, avatar, status, email)
+            this.viewDetail(username, avatar, status, email)
         })
     }
 
     bindDeleteUser(handler) {
         this.btnDelete.addEventListener('click', event => {
             handler(parseInt(sessionStorage.getItem('userID')))
+        })
+    }
+
+    bindSearchUser(users) {
+        this.inputSearch.addEventListener('input', event => {
+            let input = helper.getInput(this.inputSearch)
+            let userSeach = users.filter(user => user.username.search(input) >= 0)
+            this.displayUsers(userSeach)
+            this.bindRowDataUser(userSeach)
         })
     }
 }
