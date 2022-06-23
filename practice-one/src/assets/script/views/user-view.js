@@ -41,6 +41,8 @@ export default class View {
         this.btnCloseFormAdd = helper.getElement('#btn-close-form-add')
         
         this.modal = helper.getElement('#modal')
+
+        this.userID = 0
     }
 
     openModal() {
@@ -101,7 +103,7 @@ export default class View {
         this.inputUsername.value = ''
     }
 
-    displayUsers(users) {
+    renderUsers(users) {
         this.listUser.innerHTML = ''
 
         if (users.length === 0) {
@@ -176,17 +178,16 @@ export default class View {
     }
 
     bindRowDataUser(users) {
-        users.forEach(element => {
-            var userDataRow = helper.getElement('#row-'+element.id)
-            userDataRow.addEventListener('click', event => {
-                sessionStorage.setItem('userID', element.id)
-                this.enableSub()
-                this.viewDetail(element.username, element.avatar, element.status, element.email)
-                helper.getElementAll('.table-row').forEach(element => {
-                    if(element.classList.contains("table-row--active")) element.classList.remove("table-row--active")
-                })
-                userDataRow.classList.add('table-row--active')
+        helper.delegate(this.listUser, '.table-body-row', 'click', (event,element) => {
+            this.userID = parseInt(helper.getId(element))
+            console.log(this.userID)
+            const user = users.find(user => user.id === this.userID)
+            this.viewDetail(user.username, user.avatar, user.status, user.email)
+            this.enableSub()
+            helper.getElementAll('.table-row').forEach(element => {
+                if(element.classList.contains(helper.TABLE_ROW_ACTIVE)) element.classList.remove(helper.TABLE_ROW_ACTIVE)
             })
+            element.classList.add(helper.TABLE_ROW_ACTIVE)
         })
     }
 
@@ -209,8 +210,8 @@ export default class View {
         this.editAvatarUrl.value = avatar
 
         //Validate status
-        helper.validateStatus(status, this.detailStatus, 'user-status--active')
-        helper.validateStatus(status, this.editStatus, 'user-status--active')
+        helper.validateStatus(status, this.detailStatus, helper.USER_STATUS_ACTIVE)
+        helper.validateStatus(status, this.editStatus, helper.USER_STATUS_ACTIVE)
         helper.toggleStatus(status, this.editCheckStatus)
         
 
@@ -220,11 +221,12 @@ export default class View {
         
         this.detailName.textContent = username
         this.editName.value = username
+        console.log(this.userID)
     }
 
     bindEditUser(handler) {
         this.btnSave.addEventListener('click', event => {
-            var id = parseInt(sessionStorage.getItem('userID'))
+            var id = this.userID
             var username =  helper.getInput(this.editName)
             var email =  helper.getInput(this.editEmail)
             var avatar =  helper.getInput(this.editAvatarUrl)
@@ -237,7 +239,7 @@ export default class View {
 
     bindDeleteUser(handler) {
         this.btnDelete.addEventListener('click', event => {
-            handler(parseInt(sessionStorage.getItem('userID')))
+            handler(this.userID)
         })
     }
 
@@ -245,7 +247,7 @@ export default class View {
         this.inputSearch.addEventListener('input', event => {
             let input = helper.getInput(this.inputSearch)
             let userSeach = users.filter(user => user.username.search(input) >= 0)
-            this.displayUsers(userSeach)
+            this.renderUsers(userSeach)
             this.bindRowDataUser(userSeach)
         })
     }

@@ -1,16 +1,19 @@
-function getElement(selector) {
+const TABLE_ROW_ACTIVE = 'table-row--active'
+const USER_STATUS_ACTIVE = 'user-status--active'
+
+const getElement = (selector) => {
     const element = document.querySelector(selector)
 
     return element
 }
 
-function getElementAll(selector) {
+const getElementAll = (selector) =>{
     const elements = document.querySelectorAll(selector)
 
     return elements
 }
 
-function createElement(tag, className) {
+const createElement = (tag, className) =>{
     const element = document.createElement(tag)
 
     if (className) element.classList.add(className)
@@ -19,7 +22,7 @@ function createElement(tag, className) {
 }
 
 //Validate
-function validateAvatarUrl(url, element) {
+const validateAvatarUrl = (url, element) =>{
     element.style.backgroundImage = 'none'
     element.innerHTML = ''
     if(url !== '') {
@@ -28,7 +31,7 @@ function validateAvatarUrl(url, element) {
     return false
 }
 
-function validateStatus(status, element, className) {
+const validateStatus = (status, element, className) =>{
     if(status) {
         element.textContent = 'Active'
         element.classList.add(className)
@@ -39,24 +42,60 @@ function validateStatus(status, element, className) {
     }
 }
 
-function validateEmail(email, element) {
+const validateEmail = (email, element) =>{
     if(email !== '') element.textContent = email
     else element.textContent = 'Unknown'
 }
 
-function toggleStatus(status, element) {
+const toggleStatus = (status, element) =>{
     element.checked = status
 }
 
-function getInput(element) {
+const getInput = (element) =>{
     return element.value
 }
 
-function getCheckbox(element) {
+const getCheckbox = (element) =>{
     return element.checked
 }
 
+const getId = (element) =>{
+    console.log(element.id)
+    return element.id
+}
+
+const findParent = (element) =>{
+    return element.parentElement
+}
+
+//Event
+const on = (target, type, callback) => {
+    target.addEventListener(type, callback)
+}
+
+const delegate = (target, selector, type, handler) =>{
+    const dispatchEvent = event => {
+        const targetElement = event.target
+        const parentTargetElement = findParent(targetElement)
+        const potentialElements = target.querySelectorAll(selector)
+        let i = potentialElements.length
+        while (i--) {
+            if((potentialElements[i] === targetElement)) {
+                handler(event, targetElement)
+                break;
+            }
+            else if((potentialElements[i] === parentTargetElement)) {
+                handler(event, parentTargetElement)
+                break;
+            }
+        }
+    }
+    on(target, type, dispatchEvent)
+}
+
 export {
+    TABLE_ROW_ACTIVE,
+    USER_STATUS_ACTIVE,
     getElement,
     getElementAll,
     createElement,
@@ -65,5 +104,8 @@ export {
     validateEmail,
     toggleStatus,
     getInput,
-    getCheckbox
+    getCheckbox,
+    getId,
+    on,
+    delegate
 }

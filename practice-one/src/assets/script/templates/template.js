@@ -1,7 +1,8 @@
+import * as helper from '../helpers/helper'
 export default class Template {
     constructor() {
         this.defautTemplate
-        = `<tr class="table-row" id="row-{{id}}">
+        = `<tr class="table-row table-body-row" id="{{id}}">
                 <td class="table-col">
                     {{avatar}}
                 </td>
@@ -19,7 +20,7 @@ export default class Template {
     }
 
     checkStatusColor(status) {
-        if(status) return "user-status--active"
+        if(status) return helper.USER_STATUS_ACTIVE
         else return ""
     }
 
@@ -29,18 +30,17 @@ export default class Template {
     }
 
     renderListUser(data) {
-        var i, l
-        var view = ''
-        for(i = 0, l = data.length; i < l; i++){
-            var template = this.defautTemplate
-            template = template.replace('{{id}}', data[i].id)
-            template = template.replace('{{avatar}}', this.checkAvatar(data[i].avatar, data[i].username))
-            template = template.replace('{{email}}', data[i].email)
-            template = template.replace('{{username}}', data[i].username)
-            template = template.replace('{{status}}', this.checkStatusText(data[i].status))
-            template = template.replace('{{status-color}}', this.checkStatusColor(data[i].status))
+        let view = ''
+        data.forEach(user => {
+            let template = this.defautTemplate
+            template = template.replace('{{id}}', user.id)
+            template = template.replace('{{avatar}}', this.checkAvatar(user.avatar, user.username))
+            template = template.replace('{{email}}', user.email)
+            template = template.replace('{{username}}', user.username)
+            template = template.replace('{{status}}', this.checkStatusText(user.status))
+            template = template.replace('{{status-color}}', this.checkStatusColor(user.status))
             view = view + template
-        }
+        })
         return view
     }
 }

@@ -2,8 +2,6 @@ export default class Controllers {
     constructor(model, view) {
         this.model = model
         this.view = view
-
-        this.model.bindUserListChanged(this.onUserListChanged)
         
         this.view.bindOpenModalAddUser()        
         this.view.bindCloseModalAddUser()
@@ -19,26 +17,26 @@ export default class Controllers {
         this.view.bindDeleteUser(this.handleDeleteUser)
         this.view.bindSearchUser(this.model.users)
         
-        this.onUserListChanged(this.model.users) 
-
-        this.view.bindRowDataUser(this.model.users)
+        this.onUserListChanged(this.model.users)
     }
 
     onUserListChanged = users => {
-        this.view.displayUsers(users)
-        this.view.bindRowDataUser(this.model.users)
+        this.view.renderUsers(users)
+        this.view.bindRowDataUser(users)
     }
 
     handleAddNewUser = userNameText => {
-        this.model.addNewUser(userNameText)
+        const result = this.model.addNewUser(userNameText)
+        this.onUserListChanged(result)
     }
 
     handleEditUser = (id, username, avatar, status, email) => {
-        this.model.editUser(id, username, avatar, status, email)
+        const result = this.model.editUser(id, username, avatar, status, email)
+        this.onUserListChanged(result)
     }
 
     handleDeleteUser = id => {
-        this.model.deleteUser(id)
+        const result = this.model.deleteUser(id)
+        this.onUserListChanged(result)
     }
 }
-

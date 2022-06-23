@@ -3,12 +3,7 @@ export default class Model {
         this.users = JSON.parse(localStorage.getItem('users')) || []
     }
 
-    bindUserListChanged(callback) {
-        this.onUserListChanged = callback
-    }
-
-    _commit(users) {
-        this.onUserListChanged(users)
+    _save(users) {
         localStorage.setItem('users', JSON.stringify(users))
     }
 
@@ -20,18 +15,17 @@ export default class Model {
             email: '',
             status: false
         }
-
         this.users.push(user)
-
-        this._commit(this.users)
+        this._save(this.users)
+        return this.users
     }
 
     editUser(id, username, avatar, status, email) {
         const userEdit = {
             id: id, 
             avatar: avatar, 
-            username: username, 
-            email: email, 
+            username: username,
+            email: email,
             status: status
         }
         this.users = this.users.map(user => {
@@ -39,12 +33,15 @@ export default class Model {
             else return user
         })
 
-        this._commit(this.users)
+        this._save(this.users)
+        return this.users
     }
 
     deleteUser(id) {
         this.users = this.users.filter(user => user.id !== id) 
 
-        this._commit(this.users)
+        this._save(this.users)
+
+        return this.users
     }
 }
