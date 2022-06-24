@@ -1,6 +1,3 @@
-const TABLE_ROW_ACTIVE = 'table-row--active'
-const USER_STATUS_ACTIVE = 'user-status--active'
-
 const getElement = (selector) => {
     const element = document.querySelector(selector)
 
@@ -60,12 +57,15 @@ const getCheckbox = (element) =>{
 }
 
 const getId = (element) =>{
-    console.log(element.id)
-    return element.id
+    return parseInt(element.id)
 }
 
 const findParent = (element) =>{
     return element.parentElement
+}
+
+const findRowActive = (className) => {
+    return getElement('.'+className)
 }
 
 //Event
@@ -94,8 +94,6 @@ const delegate = (target, selector, type, handler) =>{
 }
 
 export {
-    TABLE_ROW_ACTIVE,
-    USER_STATUS_ACTIVE,
     getElement,
     getElementAll,
     createElement,
@@ -106,6 +104,7 @@ export {
     getInput,
     getCheckbox,
     getId,
+    findRowActive,
     on,
     delegate
 }

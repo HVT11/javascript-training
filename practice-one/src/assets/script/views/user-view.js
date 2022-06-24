@@ -1,4 +1,5 @@
 import * as helper from "../helpers/helper"
+import * as variables from "../variables"
 
 export default class View {
     constructor(template) {
@@ -41,16 +42,14 @@ export default class View {
         this.btnCloseFormAdd = helper.getElement('#btn-close-form-add')
         
         this.modal = helper.getElement('#modal')
-
-        this.userID = 0
     }
 
     openModal() {
-        this.modal.classList.add('modal--active')
+        this.modal.classList.add(variables.MODAL_ACTIVE)
     }
 
     closeModal() {
-        this.modal.classList.remove('modal--active')
+        this.modal.classList.remove(variables.MODAL_ACTIVE)
     }
 
     enableSub() {
@@ -60,13 +59,13 @@ export default class View {
     }
 
     openFormEdit() {
-        this.infoView.classList.remove('info--active')
-        this.infoEdit.classList.add('info--active')
+        this.infoView.classList.remove(variables.INFO_ACTIVE)
+        this.infoEdit.classList.add(variables.INFO_ACTIVE)
     }
 
     closeFormEdit() {
-        this.infoEdit.classList.remove('info--active')
-        this.infoView.classList.add('info--active')
+        this.infoEdit.classList.remove(variables.INFO_ACTIVE)
+        this.infoView.classList.add(variables.INFO_ACTIVE)
     }
 
     openSearch() {
@@ -82,11 +81,11 @@ export default class View {
     onToggleStatus(element) {
         if(this.editCheckStatus.checked) {
             element.innerHTML = 'Active'
-            element.classList.add('user-status--active')
+            element.classList.add(variables.USER_STATUS_ACTIVE)
         }
         else{
             element.innerHTML = 'Not active'
-            element.classList.remove('user-status--active')
+            element.classList.remove(variables.USER_STATUS_ACTIVE)
         }
     }
 
@@ -179,15 +178,14 @@ export default class View {
 
     bindRowDataUser(users) {
         helper.delegate(this.listUser, '.table-body-row', 'click', (event,element) => {
-            this.userID = parseInt(helper.getId(element))
-            console.log(this.userID)
-            const user = users.find(user => user.id === this.userID)
+            const id = helper.getId(element)
+            const user = users.find(user => user.id === id)
             this.viewDetail(user.username, user.avatar, user.status, user.email)
             this.enableSub()
             helper.getElementAll('.table-row').forEach(element => {
-                if(element.classList.contains(helper.TABLE_ROW_ACTIVE)) element.classList.remove(helper.TABLE_ROW_ACTIVE)
+                if(element.classList.contains(variables.TABLE_ROW_ACTIVE)) element.classList.remove(variables.TABLE_ROW_ACTIVE)
             })
-            element.classList.add(helper.TABLE_ROW_ACTIVE)
+            element.classList.add(variables.TABLE_ROW_ACTIVE)
         })
     }
 
@@ -210,8 +208,8 @@ export default class View {
         this.editAvatarUrl.value = avatar
 
         //Validate status
-        helper.validateStatus(status, this.detailStatus, helper.USER_STATUS_ACTIVE)
-        helper.validateStatus(status, this.editStatus, helper.USER_STATUS_ACTIVE)
+        helper.validateStatus(status, this.detailStatus, variables.USER_STATUS_ACTIVE)
+        helper.validateStatus(status, this.editStatus, variables.USER_STATUS_ACTIVE)
         helper.toggleStatus(status, this.editCheckStatus)
         
 
@@ -221,12 +219,11 @@ export default class View {
         
         this.detailName.textContent = username
         this.editName.value = username
-        console.log(this.userID)
     }
 
     bindEditUser(handler) {
         this.btnSave.addEventListener('click', event => {
-            var id = this.userID
+            var id = helper.getId(helper.findRowActive(variables.TABLE_ROW_ACTIVE))
             var username =  helper.getInput(this.editName)
             var email =  helper.getInput(this.editEmail)
             var avatar =  helper.getInput(this.editAvatarUrl)
@@ -239,7 +236,7 @@ export default class View {
 
     bindDeleteUser(handler) {
         this.btnDelete.addEventListener('click', event => {
-            handler(this.userID)
+            handler(helper.getId(helper.findRowActive(variables.TABLE_ROW_ACTIVE)))
         })
     }
 

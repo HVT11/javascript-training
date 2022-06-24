@@ -1,4 +1,5 @@
 import * as helper from '../helpers/helper'
+import {USER_STATUS_ACTIVE} from "../variables"
 export default class Template {
     constructor() {
         this.defautTemplate
@@ -20,7 +21,7 @@ export default class Template {
     }
 
     checkStatusColor(status) {
-        if(status) return helper.USER_STATUS_ACTIVE
+        if(status) return USER_STATUS_ACTIVE
         else return ""
     }
 
