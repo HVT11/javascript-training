@@ -1,11 +1,11 @@
 # Training JavaScript  
 ##### Author: Huỳnh Việt Trí  
 ## Practice-One
->Start: 15/06/2022 -- End: 23/06/2022
+>Start: 15/06/2022 -- End: 27/06/2022
 ### Technical
 - HTML
-- CSS
-- Javascript
+- SCSS
+- Javascript(MVC)
 - Parcel built tool
 ### How to run the project
 
