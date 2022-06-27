@@ -123,11 +123,22 @@ export default class View {
                 this.closeModal()
             }
         })
+        this.inputUsername.addEventListener('keypress', event => {
+            if(event.keyCode === 13) {
+                event.preventDefault()
+                if (this._userNameText !== '') {
+                    handler(this._userNameText)
+                    this._resetInput()
+                    this.closeModal()
+                }
+            }
+        })
     }
 
     bindOpenModalAddUser() {
         this.btnOpenFormAdd.addEventListener('click', event => {
             this.openModal()
+            this.inputUsername.focus()
         })
     }
 
@@ -182,7 +193,7 @@ export default class View {
             const user = users.find(user => user.id === id)
             this.viewDetail(user.username, user.avatar, user.status, user.email)
             this.enableSub()
-            helper.getElementAll('.table-row').forEach(element => {
+            helper.getElementAll('.table__row').forEach(element => {
                 if(element.classList.contains(variables.TABLE_ROW_ACTIVE)) element.classList.remove(variables.TABLE_ROW_ACTIVE)
             })
             element.classList.add(variables.TABLE_ROW_ACTIVE)

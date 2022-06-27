@@ -3,15 +3,15 @@ import {USER_STATUS_ACTIVE} from "../variables"
 export default class Template {
     constructor() {
         this.defautTemplate
-        = `<tr class="table-row table-body-row" id="{{id}}">
-                <td class="table-col">
+        = `<tr class="table__row table-body-row" id="{{id}}">
+                <td class="table__col">
                     {{avatar}}
                 </td>
-                <td class="table-col">{{username}}</td>
-                <td class="table-col">
-                    <div class="user-status {{status-color}}">{{status}}</div>
+                <td class="table__col">{{username}}</td>
+                <td class="table__col">
+                    <div class="label__status {{status-color}}">{{status}}</div>
                 </td>
-                    <td class="table-col">{{email}}</td>
+                    <td class="table__col">{{email}}</td>
            </tr>`
     }
 
@@ -26,8 +26,8 @@ export default class Template {
     }
 
     checkAvatar(url, username) {
-        if(url !== '') return `<img src="${url}" alt="" class="avatar">`
-        else return `<div class="avatar">${username.charAt(0).toUpperCase()}</div>`
+        if(url !== '') return `<img src="${url}" alt="" class="avatar avatar-small">`
+        else return `<div class="avatar avatar-small">${username.charAt(0).toUpperCase()}</div>`
     }
 
     renderListUser(data) {

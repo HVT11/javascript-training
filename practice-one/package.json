@@ -7,7 +7,9 @@
     "build": "parcel build"
   },
   "devDependencies": {
-    "parcel": "^2.6.0"
+    "@parcel/transformer-sass": "^2.6.0",
+    "parcel": "^2.6.0",
+    "sass": "^1.53.0"
   },
   "dependencies": {
     "eslint": "^8.16.0",
