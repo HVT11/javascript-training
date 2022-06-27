@@ -18,6 +18,12 @@ export default class Controllers {
         this.view.bindSearchUser(this.model.users)
         
         this.onUserListChanged(this.model.users)
+        this._activeRoute = ''
+    }
+
+    setView(raw) {
+        const route = raw.replace(/^#\//, '')
+        this._activeRoute = route
     }
 
     onUserListChanged = users => {
