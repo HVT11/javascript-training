@@ -8,7 +8,6 @@
 - Javascript(MVC)
 - Parcel built tool
 ### How to run the project
-
 ##### Step one: **Clone the code folder from github to your device**
 - Choose a path to save that file -> At that path open the command window  
 - Run command 
@@ -16,9 +15,9 @@
 ##### Step two: **Run project**
 - Change the path to the folder you just cloned to your computer 
 >`cd javascript-training`
-- Change the path to the folder you just cloned to your computer 
+- Checkout branch feature/practice-one
 >`git checkout feature/practice-one`
-- Change the path to the folder practice-one 
+- Change the path to the folder practice-one
 >`cd practice-one`
 - Install npm
 >`npm i`
