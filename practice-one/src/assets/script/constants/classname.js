@@ -7,5 +7,5 @@ export {
     TABLE_ROW_ACTIVE,
     USER_STATUS_ACTIVE,
     MODAL_ACTIVE,
-    INFO_ACTIVE
+    INFO_ACTIVE,
 }

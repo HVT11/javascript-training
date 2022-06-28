@@ -15,9 +15,10 @@ export default class Controllers {
         this.view.bindAddNewUser(this.handleAddNewUser)
         this.view.bindEditUser(this.handleEditUser)
         this.view.bindDeleteUser(this.handleDeleteUser)
-        this.view.bindSearchUser(this.model.users)
+        this.view.bindRowDataUser(this.handleViewUserDeTail)
+        this.view.bindSearchUser(this.handleSearchUser)
         
-        this.onUserListChanged(this.model.users)
+        // this.onUserListChanged(this.model.users)
         this._activeRoute = ''
     }
 
@@ -28,7 +29,11 @@ export default class Controllers {
 
     onUserListChanged = users => {
         this.view.renderUsers(users)
-        this.view.bindRowDataUser(users)
+    }
+
+    handleViewUserDeTail = id => {
+        const result = this.model.findUser(id)
+        this.view.viewDetail(result)
     }
 
     handleAddNewUser = userNameText => {
@@ -36,13 +41,19 @@ export default class Controllers {
         this.onUserListChanged(result)
     }
 
-    handleEditUser = (id, username, avatar, status, email) => {
-        const result = this.model.editUser(id, username, avatar, status, email)
+    handleEditUser = (user) => {
+        const result = this.model.editUser(user)
         this.onUserListChanged(result)
+        this.view.viewDetail(user)
     }
 
     handleDeleteUser = id => {
         const result = this.model.deleteUser(id)
+        this.onUserListChanged(result)
+    }
+
+    handleSearchUser = inputText => {
+        const result = this.model.searchUser(inputText)
         this.onUserListChanged(result)
     }
 }

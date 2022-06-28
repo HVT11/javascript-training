@@ -1,5 +1,5 @@
 import * as helper from "../helpers/helper"
-import * as variables from "../variables"
+import * as variables from "../constants/classname"
 
 export default class View {
     constructor(template) {
@@ -93,12 +93,8 @@ export default class View {
         element.innerHTML = ''
         element.style.backgroundImage = `url('${inputUrl.value}')`
     }
-
-    get _userNameText() {
-        return this.inputUsername.value
-    }
       
-    _resetInput() {
+    resetInput() {
         this.inputUsername.value = ''
     }
 
@@ -116,19 +112,19 @@ export default class View {
     }
 
     bindAddNewUser(handler) {
-        this.btnAddUser.addEventListener('click', event => {
-            if (this._userNameText !== '') {
-                handler(this._userNameText)
-                this._resetInput()
+        helper.on(this.btnAddUser, 'click', event => {
+            if (helper.getInput(this.inputUsername) !== '') {
+                handler(helper.getInput(this.inputUsername))
+                this.resetInput()
                 this.closeModal()
             }
         })
-        this.inputUsername.addEventListener('keypress', event => {
+        helper.on(this.inputUsername, 'keypress', event => {
             if(event.keyCode === 13) {
                 event.preventDefault()
-                if (this._userNameText !== '') {
-                    handler(this._userNameText)
-                    this._resetInput()
+                if (helper.getInput(this.inputUsername) !== '') {
+                    handler(helper.getInput(this.inputUsername))
+                    this.resetInput()
                     this.closeModal()
                 }
             }
@@ -187,61 +183,60 @@ export default class View {
         })
     }
 
-    bindRowDataUser(users) {
+    bindRowDataUser(handler) {
         helper.delegate(this.listUser, '.table-body-row', 'click', (event,element) => {
             const id = helper.getId(element)
-            const user = users.find(user => user.id === id)
-            this.viewDetail(user.username, user.avatar, user.status, user.email)
             this.enableSub()
             helper.getElementAll('.table__row').forEach(element => {
                 if(element.classList.contains(variables.TABLE_ROW_ACTIVE)) element.classList.remove(variables.TABLE_ROW_ACTIVE)
             })
             element.classList.add(variables.TABLE_ROW_ACTIVE)
+            handler(id)
         })
     }
 
-    viewDetail(username, avatar, status, email) {
+    viewDetail(user) {
         //Validate avatar url
-        if(helper.validateAvatarUrl(avatar, this.detailAvatar)) {
-            this.detailAvatar.style.backgroundImage = `url('${avatar}')`
+        if(helper.validateAvatarUrl(user.avatar, this.detailAvatar)) {
+            this.detailAvatar.style.backgroundImage = `url('${user.avatar}')`
         }
         else {
-            this.detailAvatar.innerHTML = username.charAt(0).toUpperCase()
+            this.detailAvatar.innerHTML = user.username.charAt(0).toUpperCase()
         }
 
-        if(helper.validateAvatarUrl(avatar, this.editAvatarImg)) {
-            this.editAvatarImg.style.backgroundImage = `url('${avatar}')`
+        if(helper.validateAvatarUrl(user.avatar, this.editAvatarImg)) {
+            this.editAvatarImg.style.backgroundImage = `url('${user.avatar}')`
         }
         else {
-            this.editAvatarImg.innerHTML = username.charAt(0).toUpperCase()
+            this.editAvatarImg.innerHTML = user.username.charAt(0).toUpperCase()
         }
         
-        this.editAvatarUrl.value = avatar
+        this.editAvatarUrl.value = user.avatar
 
         //Validate status
-        helper.validateStatus(status, this.detailStatus, variables.USER_STATUS_ACTIVE)
-        helper.validateStatus(status, this.editStatus, variables.USER_STATUS_ACTIVE)
-        helper.toggleStatus(status, this.editCheckStatus)
+        helper.validateStatus(user.status, this.detailStatus, variables.USER_STATUS_ACTIVE)
+        helper.validateStatus(user.status, this.editStatus, variables.USER_STATUS_ACTIVE)
+        helper.toggleStatus(user.status, this.editCheckStatus)
         
 
         //Validate email
-        helper.validateEmail(email, this.detailEmail)
-        this.editEmail.value = email
+        helper.validateEmail(user.email, this.detailEmail)
+        this.editEmail.value = user.email
         
-        this.detailName.textContent = username
-        this.editName.value = username
+        this.detailName.textContent = user.username
+        this.editName.value = user.username
     }
 
     bindEditUser(handler) {
         this.btnSave.addEventListener('click', event => {
-            var id = helper.getId(helper.findRowActive(variables.TABLE_ROW_ACTIVE))
-            var username =  helper.getInput(this.editName)
-            var email =  helper.getInput(this.editEmail)
-            var avatar =  helper.getInput(this.editAvatarUrl)
-            var status =  helper.getCheckbox(this.editCheckStatus)
-
-            handler(id, username, avatar, status, email)
-            this.viewDetail(username, avatar, status, email)
+            const user = {
+                id : helper.getId(helper.findRowActive(variables.TABLE_ROW_ACTIVE)),
+                username :  helper.getInput(this.editName),
+                email :  helper.getInput(this.editEmail),
+                avatar :  helper.getInput(this.editAvatarUrl),
+                status :  helper.getCheckbox(this.editCheckStatus)
+            }
+            handler(user)
         })
     }
 
@@ -251,12 +246,10 @@ export default class View {
         })
     }
 
-    bindSearchUser(users) {
+    bindSearchUser(handler) {
         this.inputSearch.addEventListener('input', event => {
             let input = helper.getInput(this.inputSearch)
-            let userSeach = users.filter(user => user.username.search(input) >= 0)
-            this.renderUsers(userSeach)
-            this.bindRowDataUser(userSeach)
+            handler(input)
         })
     }
 }

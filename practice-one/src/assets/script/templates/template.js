@@ -1,5 +1,4 @@
-import * as helper from '../helpers/helper'
-import {USER_STATUS_ACTIVE} from "../variables"
+import {USER_STATUS_ACTIVE} from "../constants/classname"
 export default class Template {
     constructor() {
         this.defautTemplate
