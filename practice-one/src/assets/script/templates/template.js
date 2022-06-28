@@ -15,12 +15,12 @@ export default class Template {
     }
 
     checkStatusText(status) {
-        if(status) return "Active"
+        if(status === 1) return "Active"
         else return "Not active"
     }
 
     checkStatusColor(status) {
-        if(status) return USER_STATUS_ACTIVE
+        if(status === 1) return USER_STATUS_ACTIVE
         else return ""
     }
 
@@ -34,9 +34,9 @@ export default class Template {
         data.forEach(user => {
             let template = this.defautTemplate
             template = template.replace('{{id}}', user.id)
-            template = template.replace('{{avatar}}', this.checkAvatar(user.avatar, user.username))
+            template = template.replace('{{avatar}}', this.checkAvatar(user.avatar, user.name))
             template = template.replace('{{email}}', user.email)
-            template = template.replace('{{username}}', user.username)
+            template = template.replace('{{username}}', user.name)
             template = template.replace('{{status}}', this.checkStatusText(user.status))
             template = template.replace('{{status-color}}', this.checkStatusColor(user.status))
             view = view + template

@@ -58,6 +58,11 @@ export default class View {
         this.appSub.style.display = 'block'
     }
 
+    disableSub() {
+        this.appMain.className = 'grid__column-max'
+        this.appSub.style.display = 'none'
+    }
+
     openFormEdit() {
         this.infoView.classList.remove(variables.INFO_ACTIVE)
         this.infoEdit.classList.add(variables.INFO_ACTIVE)
@@ -140,7 +145,7 @@ export default class View {
 
     bindCloseModalAddUser() {
         this.btnCloseFormAdd.addEventListener('click', event => {
-            this._resetInput()
+            this.resetInput()
             this.closeModal()
         })
     }
@@ -201,14 +206,14 @@ export default class View {
             this.detailAvatar.style.backgroundImage = `url('${user.avatar}')`
         }
         else {
-            this.detailAvatar.innerHTML = user.username.charAt(0).toUpperCase()
+            this.detailAvatar.innerHTML = user.name.charAt(0).toUpperCase()
         }
 
         if(helper.validateAvatarUrl(user.avatar, this.editAvatarImg)) {
             this.editAvatarImg.style.backgroundImage = `url('${user.avatar}')`
         }
         else {
-            this.editAvatarImg.innerHTML = user.username.charAt(0).toUpperCase()
+            this.editAvatarImg.innerHTML = user.name.charAt(0).toUpperCase()
         }
         
         this.editAvatarUrl.value = user.avatar
@@ -223,20 +228,20 @@ export default class View {
         helper.validateEmail(user.email, this.detailEmail)
         this.editEmail.value = user.email
         
-        this.detailName.textContent = user.username
-        this.editName.value = user.username
+        this.detailName.textContent = user.name
+        this.editName.value = user.name
     }
 
     bindEditUser(handler) {
         this.btnSave.addEventListener('click', event => {
+            const id = helper.getId(helper.findRowActive(variables.TABLE_ROW_ACTIVE))
             const user = {
-                id : helper.getId(helper.findRowActive(variables.TABLE_ROW_ACTIVE)),
-                username :  helper.getInput(this.editName),
+                name :  helper.getInput(this.editName),
                 email :  helper.getInput(this.editEmail),
                 avatar :  helper.getInput(this.editAvatarUrl),
-                status :  helper.getCheckbox(this.editCheckStatus)
+                status :  helper.getCheckbox(this.editCheckStatus) === true ? 1 : 0
             }
-            handler(user)
+            handler(id, user)
         })
     }
 

@@ -1,35 +1,21 @@
-import {fetchUsers} from '../data/users'
+import {fetchUsers, createUser, removeUser, updateUser} from '../data/users'
 
 export default class Model {
     constructor() {
-        // this.users = JSON.parse(localStorage.getItem('users')) || []
         this.users = fetchUsers()
-        console.log(this.users)
     }
 
     /**
-     * @desc Save data change
-     * @param {Array} users array of data user
+     * @desc Add new user
+     * @param {string} name username of user that you want to add
+     * @return {Promise} Return Promise
      */
-    save(users) {
-        localStorage.setItem('users', JSON.stringify(users))
-    }
-
-    /**
-     * @desc Save data change
-     * @param {string} username username of user that you want to add
-     */
-    addNewUser(username) {
+    addNewUser = async (name)=>{
         const user = {
-            id: this.users.length > 0 ? this.users[this.users.length - 1].id + 1 : 1,
-            avatar: '',
-            username: username,
-            email: '',
-            status: false
+            name: name
         }
-        this.users.push(user)
-        this.save(this.users)
-        return this.users
+        await createUser(user)
+        return fetchUsers()
     }
 
     /**
@@ -37,44 +23,45 @@ export default class Model {
      * @param {object} user user data that you have changed
      * @return {Array} Return Array of users
      */
-    editUser(user) {
-        this.users = this.users.map(element => {
-            if(element.id === user.id) return user
-            else return element
-        })
-
-        this.save(this.users)
-        return this.users
+    editUser = async(id,user) =>{
+        console.log(id, user)
+        await updateUser(id, user)
+        return fetchUsers()
     }
 
     /**
      * @desc Save data change
      * @param {int} id Id of user that you want to delete
-     * @return {Array} Return Array of users
+     * @return {Promise} Return Promise
      */
-    deleteUser(id) {
-        this.users = this.users.filter(user => user.id !== id) 
-        this.save(this.users)
-        return this.users
+    deleteUser = async(id) =>{
+        await removeUser(id)
+        return fetchUsers()
     }
 
     /**
      * @desc Find user
      * @param {int} id Id of user that you want to find
-     * @return {object} Return user
+     * @return {Promise} Return Promise
      */
-    findUser(id) {
-        const user = this.users.find(user => user.id === id)
-        return user
+    findUser = (id) => {
+        const userFinded = fetchUsers().then(data => {
+            const user = data.find(user => user.id === id)
+            return user
+        })
+        return userFinded
     }
 
     /**
      * @desc Search users
      * @param {string} input Keyword to search
-     * @return {Array} Return Array of users
+     * @return {Promise} Return Promise
      */
-    searchUser(input) {
-        const users = this.users.filter(user => user.username.search(input) >= 0)
+    searchUser = (input) => {
+        const users = fetchUsers().then(data => {
+            const userSearch = data.filter(user => user.name.search(input) >= 0)
+            return userSearch
+        })
         return users
     }
 }
