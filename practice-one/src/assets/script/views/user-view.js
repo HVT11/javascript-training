@@ -95,6 +95,7 @@ export default class View {
     }
 
     onChangeImg(inputUrl, element) {
+        element.innerHTML = ""
         element.style.backgroundImage = `url('${inputUrl}')`
     }
       
@@ -224,7 +225,6 @@ export default class View {
     }
 
     viewImage(url) {
-        console.log(url)
         this.onChangeImg(url, this.editAvatarImg)
         this.onChangeImg(url, this.detailAvatar)
     }
@@ -245,7 +245,6 @@ export default class View {
         this.editAvatarUrl.addEventListener('change', event => {
             const id = helper.getId(helper.findRowActive(variables.TABLE_ROW_ACTIVE))
             const file = this.editAvatarUrl.files[0]
-            console.log(file)
             handler(id, file)
         })
     }

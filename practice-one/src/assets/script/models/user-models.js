@@ -1,8 +1,17 @@
-import {fetchUsers, createUser, removeUser, updateUser, uploadAvatar} from '../data/users'
+import {fetchUsers, createUser, removeUser, updateUser, uploadAvatar} from '../servers/users'
 
 export default class Model {
     constructor() {
         this.users = fetchUsers()
+    }
+
+    /**
+     * @desc Get users
+     * @return {Promise} Return Promise
+     */
+    getUsers = () => {
+        this.users = fetchUsers()
+        return this.users
     }
 
     /**
@@ -14,8 +23,7 @@ export default class Model {
         const user = {
             name: name
         }
-        await createUser(user)
-        return fetchUsers()
+        return createUser(user)
     }
 
     /**
@@ -23,19 +31,17 @@ export default class Model {
      * @param {object} user user data that you have changed
      * @return {Array} Return Array of users
      */
-    editUser = async(id, user) =>{
-        await updateUser(id, user)
-        return fetchUsers()
+    editUser = (id, user) =>{
+        return updateUser(id, user)
     }
 
     /**
      * @desc Edit user
      * @param {number} id Id of user
-     * @param {FormData} file 
+     * @param {FormData} file
      */
     uploadImg = async (id, file) => {
-        const result = await uploadAvatar(id, file)
-        return result
+        return uploadAvatar(id, file)
     }
 
     /**
@@ -43,34 +49,25 @@ export default class Model {
      * @param {int} id Id of user that you want to delete
      * @return {Promise} Return Promise
      */
-    deleteUser = async(id) =>{
-        await removeUser(id)
-        return fetchUsers()
+    deleteUser = (id) =>{
+        return removeUser(id)
     }
 
     /**
      * @desc Find user
      * @param {int} id Id of user that you want to find
-     * @return {Promise} Return Promise
+     * @return {Object} Return Object
      */
-    findUser = (id) => {
-        const userFinded = fetchUsers().then(data => {
-            const user = data.find(user => user.id === id)
-            return user
-        })
-        return userFinded
+    findUser = async(id) => {
+        return (await this.users).find(user => user.id === id)
     }
 
     /**
      * @desc Search users
      * @param {string} input Keyword to search
-     * @return {Promise} Return Promise
+     * @return {Array} Return Array
      */
-    searchUser = (input) => {
-        const users = fetchUsers().then(data => {
-            const userSearch = data.filter(user => user.name.search(input) >= 0)
-            return userSearch
-        })
-        return users
+    searchUser = async(input) => {
+        return (await this.users).filter(user => user.name.search(input) >= 0)
     }
 }
