@@ -3,6 +3,10 @@ import { BASE_URL_API, STATUS_CODE} from '../constants/api'
 
 axios.defaults.baseURL = BASE_URL_API
 
+/**
+ * @des Fetch data user from base URL
+ * @returns {Promise}
+ */
 const fetchUsers = async() => {
     try {
         const res = await axios.get('/users')

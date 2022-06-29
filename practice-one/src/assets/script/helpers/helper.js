@@ -1,3 +1,4 @@
+import {TABLE_ROW_ACTIVE} from '../constants/classname'
 /**
  * @desc Get element
  * @param {string} selector classname or id of element
@@ -5,7 +6,6 @@
  */
 const getElement = (selector) => {
     const element = document.querySelector(selector)
-
     return element
 }
 
@@ -16,7 +16,6 @@ const getElement = (selector) => {
  */
 const getElementAll = (selector) =>{
     const elements = document.querySelectorAll(selector)
-
     return elements
 }
 
@@ -28,9 +27,9 @@ const getElementAll = (selector) =>{
  */
 const createElement = (tag, className) =>{
     const element = document.createElement(tag)
-
-    if (className) element.classList.add(className)
-
+    if (className) {
+        element.classList.add(className)
+    }
     return element
 }
 
@@ -63,7 +62,9 @@ const validateStatus = (status, element, className) =>{
     }
     else {
         element.textContent = 'Not active'
-        if(element.classList.contains(className)) element.classList.remove(className)
+        if(element.classList.contains(className)) {
+            element.classList.remove(className)
+        }
     }
 }
 
@@ -73,8 +74,12 @@ const validateStatus = (status, element, className) =>{
  * @param {HTMLElement} element
  */
 const validateEmail = (email, element) =>{
-    if(email !== '') element.textContent = email
-    else element.textContent = 'Unknown'
+    if(email !== '') {
+        element.textContent = email
+    }
+    else {
+        element.textContent = 'Unknown'
+    }
 }
 
 /**
@@ -131,6 +136,14 @@ const findRowActive = (className) => {
     return getElement('.'+className)
 }
 
+/**
+ * @desc Get id row element constain class name active
+ * @return {number} Number
+ */
+ const getIdRowActive = () => {
+    return parseInt(getId(findRowActive(TABLE_ROW_ACTIVE)))
+}
+
 //Event
 /**
  * @desc Add event for HTML element
@@ -143,7 +156,7 @@ const on = (target, type, callback) => {
 }
 
 /**
- * @desc Get value of input element
+ * @desc Bind event for element target
  * @param {HTMLElement} target
  * @param {string} selector class name or id of HTML element
  * @param {string} type type of event
@@ -180,6 +193,7 @@ export {
     getCheckbox,
     getId,
     findRowActive,
+    getIdRowActive,
     on,
     delegate
 }

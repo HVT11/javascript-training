@@ -105,7 +105,6 @@ export default class View {
 
     renderUsers(users) {
         this.listUser.innerHTML = ''
-
         if (users.length === 0) {
             const p = helper.createElement('p')
             p.textContent = 'Not have user! Add a new user ?'
@@ -116,22 +115,26 @@ export default class View {
         }
     }
 
+    getInputName() {
+        return helper.getInput(this.inputUsername)
+    }
+
+    eventAddUser(handler) {
+        if (this.getInputName() !== '') {
+            handler(this.getInputName())
+            this.resetInput()
+            this.closeModal()
+        }
+    }
+
     bindAddNewUser(handler) {
         helper.on(this.btnAddUser, 'click', event => {
-            if (helper.getInput(this.inputUsername) !== '') {
-                handler(helper.getInput(this.inputUsername))
-                this.resetInput()
-                this.closeModal()
-            }
+            this.eventAddUser(handler)
         })
         helper.on(this.inputUsername, 'keypress', event => {
             if(event.keyCode === 13) {
                 event.preventDefault()
-                if (helper.getInput(this.inputUsername) !== '') {
-                    handler(helper.getInput(this.inputUsername))
-                    this.resetInput()
-                    this.closeModal()
-                }
+                this.eventAddUser(handler)
             }
         })
     }
@@ -187,7 +190,9 @@ export default class View {
             const id = helper.getId(element)
             this.enableSub()
             helper.getElementAll('.table__row').forEach(element => {
-                if(element.classList.contains(variables.TABLE_ROW_ACTIVE)) element.classList.remove(variables.TABLE_ROW_ACTIVE)
+                if(element.classList.contains(variables.TABLE_ROW_ACTIVE)) {
+                    element.classList.remove(variables.TABLE_ROW_ACTIVE)
+                }
             })
             element.classList.add(variables.TABLE_ROW_ACTIVE)
             handler(id)
@@ -231,11 +236,11 @@ export default class View {
 
     bindEditUser(handler) {
         this.btnSave.addEventListener('click', event => {
-            const id = helper.getId(helper.findRowActive(variables.TABLE_ROW_ACTIVE))
+            const id = helper.getIdRowActive()
             const user = {
-                name :  helper.getInput(this.editName),
-                email :  helper.getInput(this.editEmail),
-                status :  helper.getCheckbox(this.editCheckStatus) === true ? 1 : 0
+                name: helper.getInput(this.editName),
+                email: helper.getInput(this.editEmail),
+                status: (helper.getCheckbox(this.editCheckStatus) === true ? 1 : 0)
             }
             handler(id, user)
         })
@@ -243,7 +248,7 @@ export default class View {
 
     bindUploadImage(handler) {
         this.editAvatarUrl.addEventListener('change', event => {
-            const id = helper.getId(helper.findRowActive(variables.TABLE_ROW_ACTIVE))
+            const id = this.getIdRowActive()
             const file = this.editAvatarUrl.files[0]
             handler(id, file)
         })
@@ -251,7 +256,7 @@ export default class View {
 
     bindDeleteUser(handler) {
         this.btnDelete.addEventListener('click', event => {
-            handler(helper.getId(helper.findRowActive(variables.TABLE_ROW_ACTIVE)))
+            handler(helper.getIdRowActive())
         })
     }
 

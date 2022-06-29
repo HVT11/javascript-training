@@ -15,18 +15,30 @@ export default class Template {
     }
 
     checkStatusText(status) {
-        if(status === 1) return "Active"
-        else return "Not active"
+        if(status === 1) {
+            return "Active"
+        }
+        else {
+            return "Not active"
+        }
     }
 
     checkStatusColor(status) {
-        if(status === 1) return USER_STATUS_ACTIVE
-        else return ""
+        if(status === 1) {
+            return USER_STATUS_ACTIVE
+        }
+        else {
+            return ""
+        }
     }
 
     checkAvatar(url, username) {
-        if(url !== '') return `<img src="${url}" alt="" class="avatar avatar-small">`
-        else return `<div class="avatar avatar-small">${username.charAt(0).toUpperCase()}</div>`
+        if(url !== '') {
+            return `<img src="${url}" alt="" class="avatar avatar-small">`
+        }
+        else {
+            return `<div class="avatar avatar-small">${username.charAt(0).toUpperCase()}</div>`
+        }
     }
 
     renderListUser(data) {

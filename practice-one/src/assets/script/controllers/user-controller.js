@@ -38,7 +38,6 @@ export default class Controllers {
     handleAddNewUser = async(name) => {
         await this.model.addNewUser(name)
         this.renderListUsers(await this.model.getUsers())
-        
     }
 
     handleEditUser = async(id, user) => {
