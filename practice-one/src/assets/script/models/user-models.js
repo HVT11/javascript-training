@@ -1,4 +1,4 @@
-import {fetchUsers, createUser, removeUser, updateUser} from '../data/users'
+import {fetchUsers, createUser, removeUser, updateUser, uploadAvatar} from '../data/users'
 
 export default class Model {
     constructor() {
@@ -19,18 +19,27 @@ export default class Model {
     }
 
     /**
-     * @desc Save data change
+     * @desc Edit user
      * @param {object} user user data that you have changed
      * @return {Array} Return Array of users
      */
-    editUser = async(id,user) =>{
-        console.log(id, user)
+    editUser = async(id, user) =>{
         await updateUser(id, user)
         return fetchUsers()
     }
 
     /**
-     * @desc Save data change
+     * @desc Edit user
+     * @param {number} id Id of user
+     * @param {FormData} file 
+     */
+    uploadImg = async (id, file) => {
+        const result = await uploadAvatar(id, file)
+        return result
+    }
+
+    /**
+     * @desc Delete user
      * @param {int} id Id of user that you want to delete
      * @return {Promise} Return Promise
      */

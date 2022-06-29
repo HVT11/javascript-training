@@ -10,13 +10,14 @@ export default class Controllers {
         this.view.bindOpenSearch()
         this.view.bindCloseSearch()
         this.view.bindToggleStatus()
-        this.view.bindChangeImg()
+        // this.view.bindChangeImg()
         
         this.view.bindAddNewUser(this.handleAddNewUser)
         this.view.bindEditUser(this.handleEditUser)
         this.view.bindDeleteUser(this.handleDeleteUser)
         this.view.bindRowDataUser(this.handleViewUserDeTail)
         this.view.bindSearchUser(this.handleSearchUser)
+        this.view.bindUploadImage(this.handleUploadImage)
         
         this.onUserListChanged(this.model.users)
         this._activeRoute = ''
@@ -41,10 +42,18 @@ export default class Controllers {
         this.onUserListChanged(result)
     }
 
-    handleEditUser = (id,user) => {
-        console.log(id, user)
+    handleEditUser = (id, user) => {
         const result = this.model.editUser(id, user)
+        this.view.disableSub()
         this.onUserListChanged(result)
+    }
+
+    handleUploadImage = async (id, file) => {
+        const formData = new FormData()
+        formData.append('upload', file)
+        formData.append('upload_fullpath', file.name)
+        const result = this.model.uploadImg(id, formData)
+        result.then(data => this.view.viewImage(data.value))
     }
 
     handleDeleteUser = id => {

@@ -63,9 +63,9 @@ const removeUser = async(id) => {
  */
 const updateUser = async (id, payload) => {
     try {
-        const response = await axios.put(`/users/${id}`, payload);
+        const response = await axios.put(`/users/${id}`, payload)
         if (response.status === STATUS_CODE.OK) {
-            return response.data;
+            return response.data
         } else {
             alert('Error')
         }
@@ -73,11 +73,31 @@ const updateUser = async (id, payload) => {
     catch(error) {
         alert('Error')
     }
-};
+}
+
+/**
+ * @param {(string | number)} id
+ * @param {Object} payload
+ * @returns {Promise}
+ */
+const uploadAvatar = async (id, payload) => {
+    try {
+        const response = await axios.post(`/users/${id}/avatar`, payload)
+        if (response.status === STATUS_CODE.OK) {
+            return response.data
+        } else {
+            alert('Error')
+        }
+    }
+    catch(error) {
+        alert('Error')
+    }
+}
 
 export {
     fetchUsers,
     createUser,
     removeUser,
-    updateUser
+    updateUser,
+    uploadAvatar
 }

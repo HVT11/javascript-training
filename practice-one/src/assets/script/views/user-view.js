@@ -95,8 +95,7 @@ export default class View {
     }
 
     onChangeImg(inputUrl, element) {
-        element.innerHTML = ''
-        element.style.backgroundImage = `url('${inputUrl.value}')`
+        element.style.backgroundImage = `url('${inputUrl}')`
     }
       
     resetInput() {
@@ -182,12 +181,6 @@ export default class View {
         })
     }
 
-    bindChangeImg() {
-        this.editAvatarUrl.addEventListener('input', event => {
-            this.onChangeImg(this.editAvatarUrl, this.editAvatarImg)
-        })
-    }
-
     bindRowDataUser(handler) {
         helper.delegate(this.listUser, '.table-body-row', 'click', (event,element) => {
             const id = helper.getId(element)
@@ -216,8 +209,6 @@ export default class View {
             this.editAvatarImg.innerHTML = user.name.charAt(0).toUpperCase()
         }
         
-        this.editAvatarUrl.value = user.avatar
-
         //Validate status
         helper.validateStatus(user.status, this.detailStatus, variables.USER_STATUS_ACTIVE)
         helper.validateStatus(user.status, this.editStatus, variables.USER_STATUS_ACTIVE)
@@ -232,16 +223,30 @@ export default class View {
         this.editName.value = user.name
     }
 
+    viewImage(url) {
+        console.log(url)
+        this.onChangeImg(url, this.editAvatarImg)
+        this.onChangeImg(url, this.detailAvatar)
+    }
+
     bindEditUser(handler) {
         this.btnSave.addEventListener('click', event => {
             const id = helper.getId(helper.findRowActive(variables.TABLE_ROW_ACTIVE))
             const user = {
                 name :  helper.getInput(this.editName),
                 email :  helper.getInput(this.editEmail),
-                avatar :  helper.getInput(this.editAvatarUrl),
                 status :  helper.getCheckbox(this.editCheckStatus) === true ? 1 : 0
             }
             handler(id, user)
+        })
+    }
+
+    bindUploadImage(handler) {
+        this.editAvatarUrl.addEventListener('change', event => {
+            const id = helper.getId(helper.findRowActive(variables.TABLE_ROW_ACTIVE))
+            const file = this.editAvatarUrl.files[0]
+            console.log(file)
+            handler(id, file)
         })
     }
 
